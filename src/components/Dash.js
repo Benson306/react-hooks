@@ -6,6 +6,8 @@ const Dash = () => {
         <br />
         <Link className="flex justify-center" to={'/useContext'}><button className="p-4 bg-slate-400 text-white rounded">Use Context</button></Link>
         <br />
+        <Link className="flex justify-center" to={'/useMemo'}><button className="p-4 bg-slate-400 text-white rounded">Use Memo</button></Link>
+        <br />
     </div> );
 }
  

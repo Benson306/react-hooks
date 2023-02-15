@@ -3,6 +3,7 @@ import Dash from "./components/Dash";
 import UseReducerHook from "./components/UseReducerHook";
 import { createContext, useState } from 'react';
 import UseContextHook from "./components/UseContextHook";
+import UseMemoHook from "./components/UseMemoHook";
 
 export const LoginContext = createContext();
 
@@ -24,6 +25,11 @@ function App() {
               <Route path='/useContext'>
                 <UseContextHook />
               </Route>
+
+              <Route path='/useMemo'>
+                <UseMemoHook />
+              </Route>
+
             </Switch>
           </Router>
       </LoginContext.Provider>
