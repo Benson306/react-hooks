@@ -4,6 +4,7 @@ import UseReducerHook from "./components/UseReducerHook";
 import { createContext, useState } from 'react';
 import UseContextHook from "./components/UseContextHook";
 import UseMemoHook from "./components/UseMemoHook";
+import UseCallbackHook from "./components/UseCallbackHook";
 
 export const LoginContext = createContext();
 
@@ -28,6 +29,10 @@ function App() {
 
               <Route path='/useMemo'>
                 <UseMemoHook />
+              </Route>
+
+              <Route path='/useCallback'>
+                <UseCallbackHook />
               </Route>
 
             </Switch>
