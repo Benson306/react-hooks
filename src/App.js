@@ -1,36 +1,58 @@
-import { useReducer } from "react";
+import { useReducer, useRef, useState } from "react";
 
+const ACTIONS = {
+  ADD_TODO: 'add',
+  DELETE_TODO: 'delete_todo'
+}
 
-function reducer(state, action){
+function reducer(todos, action){
   switch(action.type){
-    case 'incerement':
-      return { count: state.count + 1 }
-    case 'decrement':
-      return {count: state.count - 1 }
-    default:
-      return state;
+
+    case ACTIONS.ADD_TODO:
+        return [...todos, newTodo(action.payload.task)]
+      
+    case ACTIONS.DELETE_TODO:
+      return todos.filter(todo => todo.id !== action.payload.id)
   }
   
 }
 
+function newTodo(task){
+  return {id: Date.now(), task: task, done: false};
+}
+
 function App() {
 
-  const [state, dispatch] = useReducer(reducer, {count: 0});
+  const [todos, dispatch] = useReducer(reducer, []);
 
-  function increment(){
-    dispatch({type: 'incerement'});
-  }
+  const [task, setTask] = useState('');
 
-  function decrement(){
-    dispatch({type: 'decrement'});
+  const inputRef = useRef();
+
+  function handleSubmit(e){
+    e.preventDefault();
+
+    dispatch({type: ACTIONS.ADD_TODO, payload: {task: task}})
+    setTask('');
+    inputRef.current.value = "";
   }
 
 
   return (
-    <div className="App flex gap-5 ml-52">
-      <button onClick={decrement}>-</button>
-      <span>{state.count}</span>
-      <button onClick={increment}>+</button>
+    <div className="App min-h-screen bg-slate-700">
+      <form onSubmit={e => handleSubmit(e)} className="flex justify-center p-5">
+        <input type="text" ref={inputRef} onChange={e => setTask(e.target.value)} className="p-3"  placeholder="Add a Task" required />
+        <input type="submit" value="Add Task" className="bg-red-900 text-white p-3" />
+      </form>
+      <br />
+      {
+        todos.map(todo =>(
+          <div className="flex justify-center bg-zinc-300 p-3 m-1">
+            <h1 className="w-3/4">{todo.task}</h1>
+            <button onClick={() => dispatch({type: ACTIONS.DELETE_TODO, payload: {id: todo.id}})} className="w-1/4 bg-red-600 hover:bg-red-900 p-1 text-white rounded">Delete</button>
+          </div>
+        ))
+      }
     </div>
   );
 }
