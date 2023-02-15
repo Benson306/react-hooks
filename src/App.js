@@ -4,14 +4,15 @@ import UseReducerHook from "./components/UseReducerHook";
 import { createContext, useState } from 'react';
 import UseContextHook from "./components/UseContextHook";
 
-export const  LoginContext = createContext();
+export const LoginContext = createContext();
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <div className="App min-h-screen bg-slate-700">
       <h1 className="p-5 flex justify-center font-mono text-4xl text-white">React Hooks</h1>
-      <LoginContext.Provider value={loggedIn}>
+      <LoginContext.Provider value={[loggedIn, setLoggedIn]}>
           <Router>
             <Switch> 
               <Route exact path="/">
